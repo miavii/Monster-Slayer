@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">{{ player.name }}</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" :style="{width: player.health + '%'}" style="background-color: green; margin: 0; color: white;">
+                    <span> {{ player.health }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">{{ enemy.name }}</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" :style="{width: enemy.health + '%'}" style="background-color: green; margin: 0; color: white;">
+                    <span> {{ enemy.health }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section v-if="!isGameRunning" class="row controls">
+        <div class="small-12 columns">
+            <button id="start-game" v-on:click="startTheGame()">START NEW GAME</button>
+        </div>
+    </section>
+    <section v-else class="row controls">
+        <div class="small-12 columns">
+            <button v-for="(type, i) in action" :id="type" v-on:click="playerTurn(i)">{{ type.toUpperCase() }}</button>
+        </div>
+    </section>
+    <section v-if="log.length!= 0" class="row log">
+        <div class="small-12 columns">
+            <ul>
+                <li v-for="(entry, index) in log" :class="[{'player-turn': entry.turn}, {'enemy-turn':!entry.turn}]">
+                    {{entry.text}}
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<div id="contacts">
+    <section class="row box">
+        <div id="details-1"> ayo</div>
+        <div id="button"><a @click="toggleView(1)"> Hide</a></div>
+    </section>
+    
+</div>
+<script src="app.js"></script>
+</body>
+</html>
